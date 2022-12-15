@@ -2,7 +2,7 @@ package functions
 
 import "fmt"
 
-func Retangle(l int, b int) (area int) {
+func Rectangle(l int, b int) (area int) {
 
 	parameter := 2 * (l + b)
 
