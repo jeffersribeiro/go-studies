@@ -1,0 +1,67 @@
+Go provides a mechanism called a channel thta us used to share data between goroutine. When
+you execute a concurrent activity as a goroutine a resource or data needs be shared between goroutines,
+channels act as a conduit (pipe) between the goroutines and provide a mechanism thta guarantess a 
+synchronous exchange
+
+Data type  need to be specified at the time of decalration os a channel, we can share values and pointers of
+built-in, named, struct, and reference types. Data are passes around on channels: only ane goroutines has
+access tyo a data item at any given time: so data races cannot accur, by design.
+
+There are two types of channels based on thier dehavior od data exchange: unduffed channels and buffered channels. 
+An unbuffed channel is used to perform  synchornous communication between goroutines while a buffedre channel is used to 
+perform asynchronous communication. An unferred channel provides a guarantee thta an exchange between two goroutines is performed
+at the instant the send ans receive take place.A buffered channel has no such guarantee.
+
+A channel  is created by the make function, which specifies the chan keyword and a channel's element type.
+
+here is created by the make function, which specifies the chan keyword and a channel's element type.
+
+
+Syntax: 
+
+unbeffered:= make(chan int)    // unbuffed channel of integer type
+buffered := make(chan int, 10) // Buffered channel of integer type
+
+The use of the built-in function make to create both an unbuffered and buffered channel.
+The first argument to make requires the keyword chan and then the type of data the channel will to be exchanged.
+
+Here is hte code block to send a value into a channel requires the use of the <- operator:
+
+Syntax
+
+goroutine1 := make(chan string, 5) // Buffered channel of strings.
+goroutine1 <- "Australia"          // Sedn a string throungh the channel.
+
+A goroutine1 channel of type string that contains a buffer of 5 values. Then we send the string "Australia"
+throungh the channel.
+
+here is  hte code block that receives values from a channel:
+
+Syntax
+
+data := <- goroutine1 //receive a string from ther channel
+
+The <- operator is attached to the left side of the channel variable(goroutine1), to receive a value from a channel
+
+Unbuffered channels
+
+In unburref channel there isno capacity to hold any value before it's received. In this type os channels both 
+a sending and receiving goroutine to be ready at same instant before any send or receive operation can complete
+. If the two goroutines aren't ready at the same instant, the channel make to goroutines that performs its respective
+send or receive operation first wait. Synchrozation is fundamental in the interaction between the Synchrozation and 
+receive on the channel. One can't happen without the order.  
+
+Buffered channels
+
+in  buffered channel there is a capacity to hold one or more values before they're received. In this type of channels
+don't force goroutines to be ready at the same instant to perform sends and receives. There are also different conditions
+for when a send or receive does block. A receives will block only if there's no value in the channel to receive. A send block
+only if there's no availablebuffer to place the value being sent.
+
+Example: See the file channels.go
+
+Every time you run this program the output for this program will be different this is because of the random
+nature of the program and the Go Scheduler.
+in above program, a buffered channel of the type string is created with a capacity of 10. WaitGroup is given the
+count of 5,one for each goroutine. 10 string are see into the channel os going to be closed and the main 
+function waits for all the project tgo be completed.
